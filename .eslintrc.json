@@ -1,0 +1,47 @@
+{
+    "extends": [
+        "airbnb",
+        "prettier",
+        "prettier/react"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "env": {
+        "jest": true
+    },
+    "parser": "babel-eslint",
+    "rules": {
+        "import/no-unresolved": [
+            2,
+            {
+                "ignore": [
+                    "bem",
+                    "@textkernel/oneui"
+                ]
+            }
+        ],
+        "jsx-a11y/label-has-for": 0,
+        "jsx-a11y/label-has-associated-control": 2,
+        "prettier/prettier": [
+            "error"
+        ],
+        "react/jsx-filename-extension": 0,
+        "experimentalDecorators": 0,
+        "react/jsx-indent": [
+            2,
+            4
+        ],
+        "react/button-has-type": 0
+    },
+    "globals": {
+        "describe": false,
+        "it": false,
+        "expect": false,
+        "shallow": false,
+        "mount": false,
+        "window": true,
+        "document": true
+    }
+}
