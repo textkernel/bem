@@ -50,8 +50,11 @@ export default {
     resolve: {
         extensions: ['.ts', '.tsx', '.json']
     },
+    optimization: {
+        minimize: true,
+    },
     performance: {
         hints: 'error',
-        maxEntrypointSize: 3000,
+        maxEntrypointSize: 3_000,
     }
 };
