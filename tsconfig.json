@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "strict": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "declarationDir": "./dist/dts"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ]
+}
