@@ -1,2 +1,2 @@
-export { default as default, add } from './bem';
+export { default } from './bem';
 
