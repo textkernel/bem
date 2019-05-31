@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem)
+
 BEM
 ===
 
