@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem)
+[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem) [![Coverage Status](https://coveralls.io/repos/github/textkernel/bem/badge.svg?branch=dev)](https://coveralls.io/github/textkernel/bem?branch=dev)
 
 BEM
 ===
