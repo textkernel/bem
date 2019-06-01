@@ -1,1 +1,1 @@
-export { default as keymirror } from './keymirror';
+export { default as emulateCssModule } from './emulateCssModule';
