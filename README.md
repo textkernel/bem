@@ -3,6 +3,8 @@
 BEM
 ===
 
+![css modules + bem + reat = love](./docs/logo.svg)
+
 Automatically generates class names based on props/state for React component.
 
 Class names being generated based on BEM convention with the following assumtions:
