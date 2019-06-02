@@ -16,6 +16,10 @@ type TMods = {
     [key: string]: string | number | boolean;
 }
 
+interface IAttrs {
+    className: string;
+}
+
 function buildClassNames(
     baseName: string,
     classNames: TClassNames,
@@ -75,20 +79,24 @@ export default function make({
     return function bem(blockName: string, classNames: TClassNames) {
         const prefixes = { modPrefix, valuePrefix };
         return {
-            block(mods: TMods = {}) {
-                return buildClassNames(blockName, classNames, mods, prefixes);
+            block(mods: TMods = {}): IAttrs {
+                return {
+                    className: buildClassNames(blockName, classNames, mods, prefixes)
+                };
             },
-            elem(names: string | string[], mods: TMods = {}) {
+            elem(names: string | string[], mods: TMods = {}): IAttrs {
                 const elemNames = (typeof names === 'string') ? [names] : names;
-                return elemNames.reduce(
-                    (result, name) => {
-                        const elemName = `${blockName}${elemPrefix}${name}`;
-                        buildClassNames(elemName, classNames, mods, prefixes);
-                        result += ' ' + buildClassNames(elemName, classNames, mods, prefixes);
-                        return result.trim();
-                    },
-                    ''
-                );
+                return {
+                    className: elemNames.reduce(
+                        (result, name) => {
+                            const elemName = `${blockName}${elemPrefix}${name}`;
+                            buildClassNames(elemName, classNames, mods, prefixes);
+                            result += ' ' + buildClassNames(elemName, classNames, mods, prefixes);
+                            return result.trim();
+                        },
+                        ''
+                    ),
+                };
             },
         };
     }
