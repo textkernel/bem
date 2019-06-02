@@ -1,9 +1,9 @@
-import bem from '../dist/bem';
+import make from '../dist/bem';
 
 describe('@textkernel/bem package', () => {
 
   it('should have bem function as default export', () => {
-    expect(bem).toBeInstanceOf(Function);
+    expect(make).toBeInstanceOf(Function);
   });
 
 });
