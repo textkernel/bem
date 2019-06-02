@@ -3,46 +3,35 @@
 BEM
 ===
 
-![css modules + bem + reat = love](./docs/logo.svg)
+![css modules + bem + reat = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg)
 
-Automatically generates class names based on props/state for React component.
-
-Class names being generated based on BEM convention with the following assumtions:
- * As a block name we use React component name.
- * We can declare elements with `{ ...elem('elementName', props) }` construction
- * Modifyer is a component's prop or state name and its value (if value is of boolean type, it is ommited).
-
-As a separators we use:
-* element prefix: `__` (double underscore)
-* modifyer prefix `--` (double dash)
-* modifyer's value prefix is `_` (single underscore)
-
-In terms of CSS classnames it looks like this:
-```css
-/* component's root node class name */
-.ComponentName {}
-/* component's root node class name with boolean modifyer applied */
-.ComponentName--modName {}
-/* component's root node class name with string/number modifyer applied */
-.ComponentName--modName_modValue {}
-/* component's sub node (element) class name */
-.ComponentName__elem {}
-/* component's root node class name with boolean modifyer + value applied */
-.ComponentName__elem--modName {}
-/* component's root node class name with string/number modifyer + value applied */
-.ComponentName__elem--modName_modValue {}
-```
+Magically generates class names for React component.
 
 Example of usage
 ----------------
 
-Button.js
+First, create bem function customized for your project
+
+**initBem.js**
+
+```js
+import make from 'bem';
+
+export default make({
+    elemPrefix: '__',
+    modPrefix: '--',
+    valuePrefix: '_',
+});
+```
+
+**Button.js**
 
 ```js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import bem from 'bem';
+import bem from './initBem';
 import classnamesMap from './Button.scss';
+
 
 const { block, elem } = bem(
     'Button', // Block name, that is used in css classnames
@@ -83,7 +72,8 @@ Button.defaultProps = {
 export default Button;
 ```
 
-Button.scss
+**Button.scss**
+
 ```css
 
 /* Component's root node class name */
