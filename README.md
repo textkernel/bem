@@ -3,7 +3,7 @@
 BEM
 ===
 
-![css modules + bem + reat = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg)
+![css modules + bem + reat = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg?sanitize=true)
 
 Magically generates class names for React component.
 
