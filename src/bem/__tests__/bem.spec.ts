@@ -38,7 +38,7 @@ describe('@textkernel/bem', () => {
             const bem = make();
             const { block } = bem('Button', {});
             const blockClassNames = block();
-            expect(blockClassNames).toBe('');
+            expect(blockClassNames.className).toBe('');
         });
 
         it('should return correct class names when called with boolean mods', () => {
@@ -49,12 +49,12 @@ describe('@textkernel/bem', () => {
                 'Button--active',
             ]);
             const { block } = bem('Button', classnames);
-            const blockClassNames = block({
+            const blockAttrs = block({
                 disabled: true,
                 active: false,
                 broken: true,
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(blockAttrs.className.split(' ')).toEqual([
                 'Button',
                 'Button--disabled',
             ]);
@@ -70,14 +70,14 @@ describe('@textkernel/bem', () => {
                 'Button--importance',
             ]);
             const { block } = bem('Button', classnames);
-            const blockClassNames = block({
+            const blockAttrs = block({
                 size: 2,
                 score: 5,
                 // todo: float and negative
                 importance: 77,
                 likeability: 42,
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(blockAttrs.className.split(' ')).toEqual([
                 'Button',
                 'Button--size',
                 'Button--size_2',
@@ -96,12 +96,12 @@ describe('@textkernel/bem', () => {
                 'Button--type',
             ]);
             const { block } = bem('Button', classnames);
-            const blockClassNames = block({
+            const blockAttrs = block({
                 theme: 'creepy',
                 align: 'right',
                 type: 'submit'
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(blockAttrs.className.split(' ')).toEqual([
                 'Button',
                 'Button--theme',
                 'Button--theme_creepy',
@@ -114,10 +114,10 @@ describe('@textkernel/bem', () => {
             const bem = make();
             const classnames = emulateCssModule(['Button']);
             const { block } = bem('Button', classnames);
-            const blockClassNames = block({
+            const blockAttrs = block({
                 className: 'ButtonGroup__button'
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(blockAttrs.className.split(' ')).toEqual([
                 'Button',
                 'ButtonGroup__button',
             ]);
@@ -139,14 +139,14 @@ describe('@textkernel/bem', () => {
                 'Button--data_obejct',
             ]);
             const { block } = bem('Button', classnames);
-            const blockClassNames = block({
+            const blockAttrs = block({
                 theme: null as any,
                 align: undefined as any,
                 type: {} as any,
                 score: (() => true) as any,
                 data: new Map() as any,
             });
-            expect(blockClassNames.split(' ')).toEqual(['Button']);
+            expect(blockAttrs.className.split(' ')).toEqual(['Button']);
         });
     });
 
@@ -156,7 +156,7 @@ describe('@textkernel/bem', () => {
             const bem = make();
             const { elem } = bem('Button', {});
             const elemClassNames = elem('label');
-            expect(elemClassNames).toBe('');
+            expect(elemClassNames.className).toBe('');
         });
 
         it('should return correct class names when called with boolean mods', () => {
@@ -167,12 +167,12 @@ describe('@textkernel/bem', () => {
                 'Button__label--active',
             ]);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem('label', {
+            const elemAttrs = elem('label', {
                 disabled: true,
                 active: false,
                 broken: true,
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(elemAttrs.className.split(' ')).toEqual([
                 'Button__label',
                 'Button__label--disabled',
             ]);
@@ -188,14 +188,14 @@ describe('@textkernel/bem', () => {
                 'Button__label--importance',
             ]);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem('label', {
+            const elemAttrs = elem('label', {
                 size: 2,
                 score: 5,
                 // todo: float and negative
                 importance: 77,
                 likeability: 42,
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(elemAttrs.className.split(' ')).toEqual([
                 'Button__label',
                 'Button__label--size',
                 'Button__label--size_2',
@@ -214,12 +214,12 @@ describe('@textkernel/bem', () => {
                 'Button__label--type',
             ]);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem('label', {
+            const elemAttrs = elem('label', {
                 theme: 'creepy',
                 align: 'right',
                 type: 'submit'
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(elemAttrs.className.split(' ')).toEqual([
                 'Button__label',
                 'Button__label--theme',
                 'Button__label--theme_creepy',
@@ -242,12 +242,12 @@ describe('@textkernel/bem', () => {
                 'Button__item--align_right',
             ]);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem(['label', 'item'], {
+            const elemAttrs = elem(['label', 'item'], {
                 theme: 'creepy',
                 align: 'right',
                 type: 'submit'
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(elemAttrs.className.split(' ')).toEqual([
                 'Button__label',
                 'Button__label--theme',
                 'Button__label--theme_creepy',
@@ -264,10 +264,10 @@ describe('@textkernel/bem', () => {
             const bem = make();
             const classnames = emulateCssModule(['Button__label']);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem('label', {
+            const elemAttrs = elem('label', {
                 className: 'ButtonGroup__button'
             });
-            expect(blockClassNames.split(' ')).toEqual([
+            expect(elemAttrs.className.split(' ')).toEqual([
                 'Button__label',
                 'ButtonGroup__button',
             ]);
@@ -289,14 +289,14 @@ describe('@textkernel/bem', () => {
                 'Button__label--data_obejct',
             ]);
             const { elem } = bem('Button', classnames);
-            const blockClassNames = elem('label', {
+            const elemAttrs = elem('label', {
                 theme: null as any,
                 align: undefined as any,
                 type: {} as any,
                 score: (() => true) as any,
                 data: new Map() as any,
             });
-            expect(blockClassNames.split(' ')).toEqual(['Button__label']);
+            expect(elemAttrs.className.split(' ')).toEqual(['Button__label']);
         });
     });
 });
