@@ -90,7 +90,6 @@ export default function make({
                     className: elemNames.reduce(
                         (result, name) => {
                             const elemName = `${blockName}${elemPrefix}${name}`;
-                            buildClassNames(elemName, classNames, mods, prefixes);
                             result += ' ' + buildClassNames(elemName, classNames, mods, prefixes);
                             return result.trim();
                         },
