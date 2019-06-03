@@ -31,7 +31,7 @@ function buildClassNames(
 
 
     if (classNames.hasOwnProperty(baseName)) {
-        result.push(baseName);
+        result.push(classNames[baseName]);
     }
 
     Object.keys(mods)
@@ -53,13 +53,13 @@ function buildClassNames(
             if (modValue === false || modValue === '' || modValue === 0) {
                 return;
             } else if (modValue === true && classNames.hasOwnProperty(classNameWithoutValue)) {
-                result.push(classNameWithoutValue);
+                result.push(classNames[classNameWithoutValue]);
             } else {
                 if (classNames.hasOwnProperty(classNameWithoutValue)) {
-                    result.push(classNameWithoutValue);
+                    result.push(classNames[classNameWithoutValue]);
                 }
                 if (classNames.hasOwnProperty(classNameCandidateWithValue)) {
-                    result.push(classNameCandidateWithValue);
+                    result.push(classNames[classNameCandidateWithValue]);
                 }
             }
         });
