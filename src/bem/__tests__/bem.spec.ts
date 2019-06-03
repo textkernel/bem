@@ -55,8 +55,8 @@ describe('@textkernel/bem', () => {
                 broken: true,
             });
             expect(blockAttrs.className.split(' ')).toEqual([
-                'Button',
-                'Button--disabled',
+                classnames['Button'],
+                classnames['Button--disabled'],
             ]);
         });
 
@@ -78,11 +78,11 @@ describe('@textkernel/bem', () => {
                 likeability: 42,
             });
             expect(blockAttrs.className.split(' ')).toEqual([
-                'Button',
-                'Button--size',
-                'Button--size_2',
-                'Button--score_5',
-                'Button--importance',
+                classnames['Button'],
+                classnames['Button--size'],
+                classnames['Button--size_2'],
+                classnames['Button--score_5'],
+                classnames['Button--importance'],
             ]);
         });
 
@@ -102,11 +102,11 @@ describe('@textkernel/bem', () => {
                 type: 'submit'
             });
             expect(blockAttrs.className.split(' ')).toEqual([
-                'Button',
-                'Button--theme',
-                'Button--theme_creepy',
-                'Button--align_right',
-                'Button--type',
+                classnames['Button'],
+                classnames['Button--theme'],
+                classnames['Button--theme_creepy'],
+                classnames['Button--align_right'],
+                classnames['Button--type'],
             ]);
         });
 
@@ -118,7 +118,7 @@ describe('@textkernel/bem', () => {
                 className: 'ButtonGroup__button'
             });
             expect(blockAttrs.className.split(' ')).toEqual([
-                'Button',
+                classnames['Button'],
                 'ButtonGroup__button',
             ]);
         });
@@ -146,7 +146,9 @@ describe('@textkernel/bem', () => {
                 score: (() => true) as any,
                 data: new Map() as any,
             });
-            expect(blockAttrs.className.split(' ')).toEqual(['Button']);
+            expect(blockAttrs.className.split(' ')).toEqual([
+                classnames['Button']
+            ]);
         });
     });
 
@@ -173,8 +175,8 @@ describe('@textkernel/bem', () => {
                 broken: true,
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                'Button__label',
-                'Button__label--disabled',
+                classnames['Button__label'],
+                classnames['Button__label--disabled'],
             ]);
         });
 
@@ -196,11 +198,11 @@ describe('@textkernel/bem', () => {
                 likeability: 42,
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                'Button__label',
-                'Button__label--size',
-                'Button__label--size_2',
-                'Button__label--score_5',
-                'Button__label--importance',
+                classnames['Button__label'],
+                classnames['Button__label--size'],
+                classnames['Button__label--size_2'],
+                classnames['Button__label--score_5'],
+                classnames['Button__label--importance'],
             ]);
         });
 
@@ -220,11 +222,11 @@ describe('@textkernel/bem', () => {
                 type: 'submit'
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                'Button__label',
-                'Button__label--theme',
-                'Button__label--theme_creepy',
-                'Button__label--align_right',
-                'Button__label--type',
+                classnames['Button__label'],
+                classnames['Button__label--theme'],
+                classnames['Button__label--theme_creepy'],
+                classnames['Button__label--align_right'],
+                classnames['Button__label--type'],
             ]);
         });
 
@@ -248,15 +250,15 @@ describe('@textkernel/bem', () => {
                 type: 'submit'
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                'Button__label',
-                'Button__label--theme',
-                'Button__label--theme_creepy',
-                'Button__label--align_right',
-                'Button__label--type',
-                'Button__item',
-                'Button__item--theme',
-                'Button__item--theme_creepy',
-                'Button__item--align_right',
+                classnames['Button__label'],
+                classnames['Button__label--theme'],
+                classnames['Button__label--theme_creepy'],
+                classnames['Button__label--align_right'],
+                classnames['Button__label--type'],
+                classnames['Button__item'],
+                classnames['Button__item--theme'],
+                classnames['Button__item--theme_creepy'],
+                classnames['Button__item--align_right'],
             ]);
         });
 
@@ -268,7 +270,7 @@ describe('@textkernel/bem', () => {
                 className: 'ButtonGroup__button'
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                'Button__label',
+                classnames['Button__label'],
                 'ButtonGroup__button',
             ]);
         });
@@ -296,7 +298,9 @@ describe('@textkernel/bem', () => {
                 score: (() => true) as any,
                 data: new Map() as any,
             });
-            expect(elemAttrs.className.split(' ')).toEqual(['Button__label']);
+            expect(elemAttrs.className.split(' ')).toEqual([
+                classnames['Button__label']
+            ]);
         });
     });
 });
