@@ -8,7 +8,7 @@ module.exports = {
     // A list of paths to directories that Jest should use to search for files in
     roots: [
         '<rootDir>/__tests__',
-        '<rootDir>/src'
+        '<rootDir>/src',
     ],
 
     // The glob patterns Jest uses to detect test files.
@@ -21,9 +21,10 @@ module.exports = {
     // it may significantly slow down your tests.
     collectCoverage: true,
 
-    // An array of glob patterns indicating a set of files for which coverage information should be collected.
-    // If a file matches the specified glob pattern, coverage information will be collected for it even
-    // if no tests exist for this file and it's never required in the test suite.
+    // An array of glob patterns indicating a set of files for which coverage information
+    // should be collected. If a file matches the specified glob pattern, coverage
+    // information will be collected for it even if no tests exist for this file
+    // and it's never required in the test suite.
     collectCoverageFrom: [
         '<rootDir>/src/**/*.ts',
         '!<rootDir>/src/**/__tests__/**/*.ts?(x)',
@@ -33,7 +34,8 @@ module.exports = {
     // Thresholds can be specified as global, as a glob, and as a directory or file path.
     // If thresholds aren't met, jest will fail.
     // Thresholds specified as a positive number are taken to be the minimum percentage required.
-    // Thresholds specified as a negative number represent the maximum number of uncovered entities allowed.
+    // Thresholds specified as a negative number represent the maximum number of uncovered entities
+    // allowed.
     coverageThreshold: {
         global: {
             branches: 100,
@@ -47,5 +49,5 @@ module.exports = {
     // A transformer is a module that provides a synchronous function for transforming source files.
     transform: {
         '^.+\\.tsx?$': 'ts-jest',
-    }
+    },
 };

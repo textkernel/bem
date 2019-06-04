@@ -1,9 +1,7 @@
-import make from '../dist/bem';
+import make from '../dist/bem'; // eslint-disable-line import/no-unresolved
 
-describe('@textkernel/bem package', () => {
-
-  it('should have bem function as default export', () => {
-    expect(make).toBeInstanceOf(Function);
-  });
-
+describe('@textkernel/bem package', (): void => {
+    it('should have bem function as default export', (): void => {
+        expect(make).toBeInstanceOf(Function);
+    });
 });

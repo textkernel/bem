@@ -39,6 +39,7 @@ module.exports =  {
             files: ['*.spec.ts'],
             rules: {
                '@typescript-eslint/explicit-function-return-type': 'off',
+               'dot-notation': 'off',
             },
         },
         {

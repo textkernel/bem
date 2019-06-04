@@ -1,10 +1,8 @@
-import make from '../';
-import { emulateCssModule } from './utils'
+import make from '..';
+import { emulateCssModule } from './utils';
 
 describe('@textkernel/bem', () => {
-
     describe('make', () => {
-
         it('should return bem function when called without options', () => {
             const bem = make();
             expect(bem).toBeInstanceOf(Function);
@@ -22,7 +20,6 @@ describe('@textkernel/bem', () => {
     });
 
     describe('bem', () => {
-
         it('should return `block` and `elem` functions', () => {
             const bem = make();
             const classnames = {};
@@ -33,7 +30,6 @@ describe('@textkernel/bem', () => {
     });
 
     describe('block', () => {
-
         it('should return empty class names when called with no props', () => {
             const bem = make();
             const { block } = bem('Button', {});
@@ -99,7 +95,7 @@ describe('@textkernel/bem', () => {
             const blockAttrs = block({
                 theme: 'creepy',
                 align: 'right',
-                type: 'submit'
+                type: 'submit',
             });
             expect(blockAttrs.className.split(' ')).toEqual([
                 classnames['Button'],
@@ -115,7 +111,7 @@ describe('@textkernel/bem', () => {
             const classnames = emulateCssModule(['Button']);
             const { block } = bem('Button', classnames);
             const blockAttrs = block({
-                className: 'ButtonGroup__button'
+                className: 'ButtonGroup__button',
             });
             expect(blockAttrs.className.split(' ')).toEqual([
                 classnames['Button'],
@@ -147,13 +143,12 @@ describe('@textkernel/bem', () => {
                 data: new Map() as any,
             });
             expect(blockAttrs.className.split(' ')).toEqual([
-                classnames['Button']
+                classnames['Button'],
             ]);
         });
     });
 
     describe('elem', () => {
-
         it('should return empty class names when called with no props', () => {
             const bem = make();
             const { elem } = bem('Button', {});
@@ -219,7 +214,7 @@ describe('@textkernel/bem', () => {
             const elemAttrs = elem('label', {
                 theme: 'creepy',
                 align: 'right',
-                type: 'submit'
+                type: 'submit',
             });
             expect(elemAttrs.className.split(' ')).toEqual([
                 classnames['Button__label'],
@@ -247,7 +242,7 @@ describe('@textkernel/bem', () => {
             const elemAttrs = elem(['label', 'item'], {
                 theme: 'creepy',
                 align: 'right',
-                type: 'submit'
+                type: 'submit',
             });
             expect(elemAttrs.className.split(' ')).toEqual([
                 classnames['Button__label'],
@@ -267,7 +262,7 @@ describe('@textkernel/bem', () => {
             const classnames = emulateCssModule(['Button__label']);
             const { elem } = bem('Button', classnames);
             const elemAttrs = elem('label', {
-                className: 'ButtonGroup__button'
+                className: 'ButtonGroup__button',
             });
             expect(elemAttrs.className.split(' ')).toEqual([
                 classnames['Button__label'],
@@ -299,7 +294,7 @@ describe('@textkernel/bem', () => {
                 data: new Map() as any,
             });
             expect(elemAttrs.className.split(' ')).toEqual([
-                classnames['Button__label']
+                classnames['Button__label'],
             ]);
         });
     });

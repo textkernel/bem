@@ -2,17 +2,17 @@ const DEFAULT_ELEM_PREFIX = '__';
 const DEFAULT_MOD_PREFIX = '--';
 const DEFAULT_VALUE_PREFIX = '_';
 
-type TPrefixes = {
+interface IPrefixes {
     elemPrefix?: string;
     modPrefix?: string;
     valuePrefix?: string;
 }
 
-type TClassNames = {
+export interface IClassNames {
     [key: string]: string;
 }
 
-type TMods = {
+interface IMods {
     [key: string]: string | number | boolean;
 }
 
@@ -20,45 +20,49 @@ interface IAttrs {
     className: string;
 }
 
+function hasClassName(classNames: IClassNames, value: string): boolean {
+    return Object.prototype.hasOwnProperty.call(classNames, value);
+}
+
 function buildClassNames(
     baseName: string,
-    classNames: TClassNames,
-    mods: TMods,
-    prefixes: TPrefixes
+    classNames: IClassNames,
+    mods: IMods,
+    prefixes: IPrefixes,
 ): string {
     const result = [];
     const { modPrefix, valuePrefix } = prefixes;
 
-
-    if (classNames.hasOwnProperty(baseName)) {
+    if (hasClassName(classNames, baseName)) {
         result.push(classNames[baseName]);
     }
 
     Object.keys(mods)
-        .filter(modName => {
+        .filter((modName): boolean => {
             if (modName === 'className') return false;
             const typeOfMod = typeof mods[modName];
             return (
-                typeOfMod === 'string' ||
-                typeOfMod === 'number' ||
-                typeOfMod === 'boolean'
+                typeOfMod === 'string'
+                || typeOfMod === 'number'
+                || typeOfMod === 'boolean'
             );
         })
-        .forEach(modName => {
-
+        .forEach((modName): void => {
             const modValue = mods[modName];
             const classNameWithoutValue = `${baseName}${modPrefix}${modName}`;
             const classNameCandidateWithValue = `${baseName}${modPrefix}${modName}${valuePrefix}${modValue}`;
 
             if (modValue === false || modValue === '' || modValue === 0) {
                 return;
-            } else if (modValue === true && classNames.hasOwnProperty(classNameWithoutValue)) {
+            }
+
+            if (modValue === true && hasClassName(classNames, classNameWithoutValue)) {
                 result.push(classNames[classNameWithoutValue]);
             } else {
-                if (classNames.hasOwnProperty(classNameWithoutValue)) {
+                if (hasClassName(classNames, classNameWithoutValue)) {
                     result.push(classNames[classNameWithoutValue]);
                 }
-                if (classNames.hasOwnProperty(classNameCandidateWithValue)) {
+                if (hasClassName(classNames, classNameCandidateWithValue)) {
                     result.push(classNames[classNameCandidateWithValue]);
                 }
             }
@@ -74,29 +78,28 @@ function buildClassNames(
 export default function make({
     elemPrefix = DEFAULT_ELEM_PREFIX,
     modPrefix = DEFAULT_MOD_PREFIX,
-    valuePrefix = DEFAULT_VALUE_PREFIX
-}: TPrefixes = {}) {
-    return function bem(blockName: string, classNames: TClassNames) {
+    valuePrefix = DEFAULT_VALUE_PREFIX,
+}: IPrefixes = {}) {
+    return function bem(blockName: string, classNames: IClassNames) {
         const prefixes = { modPrefix, valuePrefix };
         return {
-            block(mods: TMods = {}): IAttrs {
+            block(mods: IMods = {}): IAttrs {
                 return {
-                    className: buildClassNames(blockName, classNames, mods, prefixes)
+                    className: buildClassNames(blockName, classNames, mods, prefixes),
                 };
             },
-            elem(names: string | string[], mods: TMods = {}): IAttrs {
+            elem(names: string | string[], mods: IMods = {}): IAttrs {
                 const elemNames = (typeof names === 'string') ? [names] : names;
                 return {
                     className: elemNames.reduce(
-                        (result, name) => {
-                            const elemName = `${blockName}${elemPrefix}${name}`;
-                            result += ' ' + buildClassNames(elemName, classNames, mods, prefixes);
-                            return result.trim();
-                        },
-                        ''
-                    ),
+                        (result: string[], name: string): string[] => [
+                            ...result,
+                            buildClassNames(`${blockName}${elemPrefix}${name}`, classNames, mods, prefixes),
+                        ],
+                        [],
+                    ).join(' '),
                 };
             },
         };
-    }
+    };
 }

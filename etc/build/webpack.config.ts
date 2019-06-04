@@ -1,7 +1,8 @@
+// eslint-disable-next-line
 /// <reference types="./typings" />
 import path from 'path';
-import webpack from 'webpack';
-import FileManagerPlugin from 'filemanager-webpack-plugin';
+import webpack from 'webpack'; // eslint-disable-line
+import FileManagerPlugin from 'filemanager-webpack-plugin'; // eslint-disable-line
 import { buildParams } from '../../package.json';
 
 const PROJECT_ROOT_PATH = path.resolve(__dirname, '../../');
@@ -18,21 +19,21 @@ export default {
         path: DIST_PATH,
         library: LIBRARY_NAME,
         libraryTarget: 'umd',
-        umdNamedDefine: true
+        umdNamedDefine: true,
     },
     module: {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
                 loader: 'ts-loader',
-                exclude: /node_modules/
-            }
-        ]
+                exclude: /node_modules/,
+            },
+        ],
     },
     plugins: [
         new webpack.NamedModulesPlugin(),
         new webpack.HashedModuleIdsPlugin({
-            hashDigestLength: 6
+            hashDigestLength: 6,
         }),
         new FileManagerPlugin({
             onStart: {
@@ -41,14 +42,14 @@ export default {
             onEnd: {
                 move: [{
                     source: `${DIST_PATH}/dts/bem/bem.d.ts`,
-                    destination: `${DIST_PATH}/bem.d.ts`
+                    destination: `${DIST_PATH}/bem.d.ts`,
                 }],
-                delete: [`${DIST_PATH}/dts/`]
-            }
-        })
+                delete: [`${DIST_PATH}/dts/`],
+            },
+        }),
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.json']
+        extensions: ['.ts', '.tsx', '.json'],
     },
     optimization: {
         minimize: true,
@@ -56,5 +57,5 @@ export default {
     performance: {
         hints: 'error',
         maxEntrypointSize: 3_000,
-    }
+    },
 };
