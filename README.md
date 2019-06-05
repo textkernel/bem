@@ -1,4 +1,10 @@
-[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem) [![Coverage Status](https://coveralls.io/repos/github/textkernel/bem/badge.svg?branch=dev)](https://coveralls.io/github/textkernel/bem?branch=dev)
+[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem)
+[![Coverage Status](https://coveralls.io/repos/github/textkernel/bem/badge.svg?branch=dev)](https://coveralls.io/github/textkernel/bem?branch=dev)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/textkernel/bem.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/textkernel/bem/context:javascript)
+![Package dependencies](https://img.shields.io/david/textkernel/bem.svg?style=flat)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@textkernel/bem.svg)
+![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)
+[![npm version](https://img.shields.io/npm/v/@textkernel/bem.svg)](https://www.npmjs.com/package/@textkernel/bem)
 
 BEM
 ===
