@@ -14,7 +14,11 @@ describe('@textkernel/bem', () => {
         });
 
         it('should return bem function when called with some options', () => {
-            const bem = make({ elemPrefix: '~~' });
+            const bem = make({
+                elemPrefix: '~~',
+                modPrefix: '__',
+                valuePrefix: '_',
+            });
             expect(bem).toBeInstanceOf(Function);
         });
     });
