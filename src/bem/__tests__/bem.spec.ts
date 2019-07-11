@@ -321,11 +321,11 @@ describe('@textkernel/bem', () => {
             ]);
             const { elem } = bem('Button', classnames);
             const elemAttrs = elem('label', {
-                theme: null as any,
-                align: undefined as any,
-                type: {} as any,
-                score: (() => true) as any,
-                data: new Map() as any,
+                theme: null,
+                align: undefined,
+                type: {},
+                score: (() => true),
+                data: new Map(),
             });
             expect(elemAttrs.className.trim()).toBe(elemAttrs.className);
             expect(elemAttrs.className.split(' ')).toEqual([

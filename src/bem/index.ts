@@ -1,1 +1,1 @@
-export { default, IClassNames } from './bem';
+export { default, ClassNames } from './bem';

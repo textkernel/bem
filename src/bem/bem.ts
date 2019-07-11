@@ -2,33 +2,33 @@ const DEFAULT_ELEM_PREFIX = '__';
 const DEFAULT_MOD_PREFIX = '--';
 const DEFAULT_VALUE_PREFIX = '_';
 
-interface IPrefixes {
+type Prefixes = {
     elemPrefix?: string;
     modPrefix?: string;
     valuePrefix?: string;
 }
 
-export interface IClassNames {
+export type ClassNames = {
     [key: string]: string;
 }
 
-interface IMods {
-    [key: string]: string | number | boolean;
+type Mods = {
+    [key: string]: unknown;
 }
 
-interface IAttrs {
+type Attrs = {
     className: string;
 }
 
-function hasClassName(classNames: IClassNames, value: string): boolean {
+function hasClassName(classNames: ClassNames, value: string): boolean {
     return Object.prototype.hasOwnProperty.call(classNames, value);
 }
 
 function buildClassNames(
     baseName: string,
-    classNames: IClassNames,
-    mods: IMods,
-    prefixes: IPrefixes,
+    classNames: ClassNames,
+    mods: Mods,
+    prefixes: Prefixes,
 ): string {
     const result = [];
     const { modPrefix, valuePrefix } = prefixes;
@@ -79,16 +79,16 @@ export default function make({
     elemPrefix = DEFAULT_ELEM_PREFIX,
     modPrefix = DEFAULT_MOD_PREFIX,
     valuePrefix = DEFAULT_VALUE_PREFIX,
-}: IPrefixes = {}) {
-    return function bem(blockName: string, classNames: IClassNames) {
+}: Prefixes = {}) {
+    return function bem(blockName: string, classNames: ClassNames) {
         const prefixes = { modPrefix, valuePrefix };
         return {
-            block(mods: IMods = {}): IAttrs {
+            block(mods: Mods = {}): Attrs {
                 return {
                     className: buildClassNames(blockName, classNames, mods, prefixes),
                 };
             },
-            elem(names: string | string[], mods: IMods = {}): IAttrs {
+            elem(names: string | string[], mods: Mods = {}): Attrs {
                 const elemNames = (typeof names === 'string') ? [names] : names;
                 return {
                     className: elemNames.reduce(
