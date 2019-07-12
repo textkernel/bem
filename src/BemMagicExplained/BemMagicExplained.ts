@@ -2,23 +2,32 @@ import ActionExplanation from './ActionExplanation';
 import { ClassNames } from '../types';
 
 type BemMagicExplainedArgs = {
-    block: string,
-    elems?: string[],
-    classNames: ClassNames,
-    isEnabled: boolean,
+    block: string;
+    elems?: string[];
+    classNames: ClassNames;
+    isEnabled: boolean;
 }
 
 export default class BemMagicExplained {
+    /* eslint-disable no-console */
 
     private readonly block: string;
+
     private readonly elems: string[];
+
     private readonly classNames: ClassNames;
+
     private readonly isEnabled: boolean;
+
     private explanationsApplied: ActionExplanation[] = [];
+
     private explanationsIgnored: ActionExplanation[] = [];
+
     private result: string = '';
 
-    constructor({ block, elems = [], classNames, isEnabled }: BemMagicExplainedArgs) {
+    public constructor({
+        block, elems = [], classNames, isEnabled,
+    }: BemMagicExplainedArgs) {
         this.block = block;
         this.elems = elems;
         this.classNames = classNames;
@@ -27,13 +36,13 @@ export default class BemMagicExplained {
 
     public applies(baseName: string): ActionExplanation {
         const explanation = new ActionExplanation(baseName, ActionExplanation.action.applied);
-        this.explanationsApplied.push(explanation)
+        this.explanationsApplied.push(explanation);
         return explanation;
     }
 
     public ignores(baseName: string): ActionExplanation {
         const explanation = new ActionExplanation(baseName, ActionExplanation.action.ignored);
-        this.explanationsIgnored.push(explanation)
+        this.explanationsIgnored.push(explanation);
         return explanation;
     }
 
@@ -59,53 +68,53 @@ export default class BemMagicExplained {
         );
     }
 
-    private printClassNamesInfo() {
+    private printClassNamesInfo(): void {
         console.groupCollapsed();
         console.log('Class names lookup table:');
         console.table(this.classNames);
         console.groupEnd();
     }
 
-    private groupTogether(groupTitle: string, ...printFunctions: Array<() => void>) {
+    private groupTogether(groupTitle: string, ...printFunctions: (() => void)[]): void {
         console.group(groupTitle);
-        printFunctions.forEach(printFunction => printFunction.call(this));
+        printFunctions.forEach(
+            (printFunction): void => printFunction.call(this),
+        );
         console.groupEnd();
     }
 
-    private printAppliedExplanations() {
+    private printAppliedExplanations(): void {
         if (this.explanationsApplied.length > 0) {
             console.log('Applied:');
-            const explanationsAppliedTableData = this.explanationsApplied.map(explanation => {
-                return {
+            const explanationsAppliedTableData = this.explanationsApplied
+                .map((explanation): unknown => ({
                     'Block or element': explanation.contextSummary,
                     'What happened': explanation.actionSummary,
                     'Why?': explanation.reasonSummary,
                     'Class name': explanation.resultSummary,
-                };
-            });
+                }));
             console.table(explanationsAppliedTableData);
         } else {
             console.log('Nothing was applied');
         }
     }
 
-    private printIgnoredExplanations() {
+    private printIgnoredExplanations(): void {
         if (this.explanationsIgnored.length > 0) {
             console.log('Ignored:');
-            const explanationsIgnoredTableData = this.explanationsIgnored.map(explanation => {
-                return {
+            const explanationsIgnoredTableData = this.explanationsIgnored
+                .map((explanation): unknown => ({
                     'Block or element': explanation.contextSummary,
                     'What happened': explanation.actionSummary,
                     'Why?': explanation.reasonSummary,
-                };
-            });
+                }));
             console.table(explanationsIgnoredTableData);
         } else {
             console.log('Nothing was ignored');
         }
     }
 
-    private printOutput() {
+    private printOutput(): void {
         if (this.result) {
             console.log('After all, the following class names were applied:');
             console.table(this.result.split(' '));
@@ -114,8 +123,6 @@ export default class BemMagicExplained {
 
     private static stringifyArrayOfStrings(values: string[]): string {
         if (values.length === 0) return '';
-        return values.map(value => `"${value}"`).join(', ');
+        return values.map((value): string => `"${value}"`).join(', ');
     }
-
 }
-

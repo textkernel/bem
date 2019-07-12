@@ -154,11 +154,11 @@ describe('@textkernel/bem', () => {
             ]);
             const { block } = bem('Button', classnames);
             const blockAttrs = block({
-                theme: null as any,
-                align: undefined as any,
-                type: {} as any,
-                score: (() => true) as any,
-                data: new Map() as any,
+                theme: null,
+                align: undefined,
+                type: {},
+                score: (() => true),
+                data: new Map(),
             });
             expect(blockAttrs.className.trim()).toBe(blockAttrs.className);
             expect(blockAttrs.className.split(' ')).toEqual([
@@ -335,7 +335,6 @@ describe('@textkernel/bem', () => {
     });
 
     describe('block/elem(..., { debug: true }) options', () => {
-
         it('should log debugging information if needed', () => {
             const consoleLog = jest.spyOn(console, 'log').mockImplementation();
             const consoleTable = jest.spyOn(console, 'table').mockImplementation();
@@ -369,12 +368,12 @@ describe('@textkernel/bem', () => {
                 shit: undefined,
                 onemilliondollamistake: null,
             }, {
-                debug: true
+                debug: true,
             });
             expect(consoleLog).toHaveBeenCalledTimes(8);
             expect(consoleTable).toHaveBeenCalledTimes(8);
             expect(consoleGroup).toHaveBeenCalledTimes(2);
             expect(consolegroupEnd).toHaveBeenCalledTimes(4);
         });
-    })
+    });
 });

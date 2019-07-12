@@ -1,24 +1,29 @@
-enum Action { applied, ignored };
+enum Action { applied, ignored }
 
 enum TypesOfWhat {
     baseName = 'baseName',
     modifier = 'modifier',
     className = 'className'
-};
+}
 
 export default class ActionExplanation {
-
-    static action = Action;
+    public static action = Action;
 
     private readonly action: Action;
+
     private context: string;
+
     private what: string | undefined;
+
     private typeOfWhat: TypesOfWhat;
+
     private value: string | number | boolean | undefined;
+
     private classname: string | undefined;
+
     private reason: string | undefined;
 
-    constructor(context: string, action: Action) {
+    public constructor(context: string, action: Action) {
         this.context = context;
         this.action = action;
         this.typeOfWhat = TypesOfWhat.baseName;
@@ -86,8 +91,12 @@ export default class ActionExplanation {
                 }
                 break;
             case TypesOfWhat.className:
-                    summary = `Class "${this.what}" was applied.`;
+                summary = `Class "${this.what}" was applied.`;
                 break;
+            default:
+                throw new Error(
+                    `ActionExplanation#typeOfWhat has unexpected value "${this.typeOfWhat}".`,
+                );
         }
         return summary;
     }
@@ -106,10 +115,13 @@ export default class ActionExplanation {
                 }
                 break;
             case TypesOfWhat.className:
-                    summary = `Class "${this.what}" was ignored.`;
+                summary = `Class "${this.what}" was ignored.`;
                 break;
+            default:
+                throw new Error(
+                    `ActionExplanation#typeOfWhat has unexpected value "${this.typeOfWhat}".`,
+                );
         }
         return summary;
     }
-
 }

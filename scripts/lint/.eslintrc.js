@@ -33,6 +33,7 @@ module.exports =  {
     rules:  {
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/interface-name-prefix': 'always',
+        '@typescript-eslint/prefer-interface': 'off',
     },
     overrides: [
         {

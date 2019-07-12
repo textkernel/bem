@@ -49,9 +49,9 @@ function buildClassNames(
             if (modName === 'className') return false;
             const typeOfValue = typeof mods[modName];
             const isStringNumberOrBoolean = (
-                typeOfValue === 'string' ||
-                typeOfValue === 'number' ||
-                typeOfValue === 'boolean'
+                typeOfValue === 'string'
+                || typeOfValue === 'number'
+                || typeOfValue === 'boolean'
             );
             if (isStringNumberOrBoolean === false) {
                 bemMagic.ignores(baseName).modifier(modName)
@@ -105,12 +105,18 @@ function buildClassNames(
     return result.join(' ');
 }
 
-function makeBlockFunction(blockName: string, classNames: ClassNames, prefixes: Prefixes) {
+type BlockFunction = (mods?: Mods, options?: DebugOptions) => Attrs;
+
+function makeBlockFunction(
+    blockName: string,
+    classNames: ClassNames,
+    prefixes: Prefixes,
+): BlockFunction {
     return function block(mods: Mods = {}, options: DebugOptions = {}): Attrs {
         const bemMagic = new BemMagicExplained({
             block: blockName,
             classNames,
-            isEnabled: (options.debug === true)
+            isEnabled: (options.debug === true),
         });
         const output = buildClassNames(
             blockName,
@@ -122,17 +128,27 @@ function makeBlockFunction(blockName: string, classNames: ClassNames, prefixes: 
         bemMagic.thatsWhatWeHave(output);
         bemMagic.explain();
         return { className: output };
-    }
+    };
 }
 
-function makeElemFunction(blockName: string, classNames: ClassNames, prefixes: Prefixes) {
-    return function elem(names: string | string[], mods: Mods = {}, options: DebugOptions = {}): Attrs {
+type ElemFunction = (names: string | string[], mods?: Mods, options?: DebugOptions) => Attrs;
+
+function makeElemFunction(
+    blockName: string,
+    classNames: ClassNames,
+    prefixes: Prefixes,
+): ElemFunction {
+    return function elem(
+        names: string | string[],
+        mods: Mods = {},
+        options: DebugOptions = {},
+    ): Attrs {
         const elemNames = (typeof names === 'string') ? [names] : names;
         const bemMagic = new BemMagicExplained({
             block: blockName,
             elems: elemNames,
             classNames,
-            isEnabled: (options.debug === true)
+            isEnabled: (options.debug === true),
         });
         const output = elemNames.reduce(
             (result: string[], name: string): string[] => [
@@ -150,19 +166,29 @@ function makeElemFunction(blockName: string, classNames: ClassNames, prefixes: P
         bemMagic.thatsWhatWeHave(output);
         bemMagic.explain();
         return { className: output };
-    }
+    };
 }
 
-export default function make(prefixes: Prefixes = {}) {
+type BlockElemHelpers = {
+    block: BlockFunction;
+    elem: ElemFunction;
+}
+type BemFn = (blockName: string, classNames: ClassNames) => BlockElemHelpers
+
+function makeBemFunction(prefixes: Prefixes): BemFn {
+    return function bem(blockName: string, classNames: ClassNames): BlockElemHelpers {
+        return {
+            block: makeBlockFunction(blockName, classNames, prefixes),
+            elem: makeElemFunction(blockName, classNames, prefixes),
+        };
+    };
+}
+
+export default function make(prefixes: Prefixes = {}): BemFn {
     const safePrefixes = Object.assign({
         elemPrefix: DEFAULT_ELEM_PREFIX,
         modPrefix: DEFAULT_MOD_PREFIX,
         valuePrefix: DEFAULT_VALUE_PREFIX,
     }, prefixes);
-    return function bem(blockName: string, classNames: ClassNames) {
-        return {
-            block: makeBlockFunction(blockName, classNames, safePrefixes),
-            elem: makeElemFunction(blockName, classNames, safePrefixes),
-        };
-    };
+    return makeBemFunction(safePrefixes);
 }
