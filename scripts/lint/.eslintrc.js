@@ -43,7 +43,7 @@ module.exports =  {
             },
         },
         {
-            files: ['**/etc/**/*.ts', '**/etc/**/*.js'],
+            files: ['**/scripts/**/*.ts', '**/scripts/**/*.js'],
             rules: {
                'import/no-extraneous-dependencies': 'off',
             },
