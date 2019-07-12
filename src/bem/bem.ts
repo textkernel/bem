@@ -105,56 +105,64 @@ function buildClassNames(
     return result.join(' ');
 }
 
-export default function make({
-    elemPrefix = DEFAULT_ELEM_PREFIX,
-    modPrefix = DEFAULT_MOD_PREFIX,
-    valuePrefix = DEFAULT_VALUE_PREFIX,
-}: Prefixes = {}) {
-    return function bem(blockName: string, classNames: ClassNames) {
-        const prefixes = { modPrefix, valuePrefix };
-        return {
-            block(mods: Mods = {}, options: DebugOptions = {}): Attrs {
-                const bemMagic = new BemMagicExplained({
-                    block: blockName,
-                    classNames,
-                    isEnabled: (options.debug === true)
-                });
-                const output = buildClassNames(
-                    blockName,
+function makeBlockFunction(blockName: string, classNames: ClassNames, prefixes: Prefixes) {
+    return function block(mods: Mods = {}, options: DebugOptions = {}): Attrs {
+        const bemMagic = new BemMagicExplained({
+            block: blockName,
+            classNames,
+            isEnabled: (options.debug === true)
+        });
+        const output = buildClassNames(
+            blockName,
+            classNames,
+            mods,
+            prefixes,
+            bemMagic,
+        );
+        bemMagic.thatsWhatWeHave(output);
+        bemMagic.explain();
+        return { className: output };
+    }
+}
+
+function makeElemFunction(blockName: string, classNames: ClassNames, prefixes: Prefixes) {
+    return function elem(names: string | string[], mods: Mods = {}, options: DebugOptions = {}): Attrs {
+        const elemNames = (typeof names === 'string') ? [names] : names;
+        const bemMagic = new BemMagicExplained({
+            block: blockName,
+            elems: elemNames,
+            classNames,
+            isEnabled: (options.debug === true)
+        });
+        const output = elemNames.reduce(
+            (result: string[], name: string): string[] => [
+                ...result,
+                buildClassNames(
+                    `${blockName}${prefixes.elemPrefix}${name}`,
                     classNames,
                     mods,
                     prefixes,
                     bemMagic,
-                );
-                bemMagic.thatsWhatWeHave(output);
-                bemMagic.explain();
-                return { className: output };
-            },
-            elem(names: string | string[], mods: Mods = {}, options: DebugOptions = {}): Attrs {
-                const elemNames = (typeof names === 'string') ? [names] : names;
-                const bemMagic = new BemMagicExplained({
-                    block: blockName,
-                    elems: elemNames,
-                    classNames,
-                    isEnabled: (options.debug === true)
-                });
-                const output = elemNames.reduce(
-                    (result: string[], name: string): string[] => [
-                        ...result,
-                        buildClassNames(
-                            `${blockName}${elemPrefix}${name}`,
-                            classNames,
-                            mods,
-                            prefixes,
-                            bemMagic,
-                        ),
-                    ],
-                    [],
-                ).join(' ');
-                bemMagic.thatsWhatWeHave(output);
-                bemMagic.explain();
-                return { className: output };
-            },
+                ),
+            ],
+            [],
+        ).join(' ');
+        bemMagic.thatsWhatWeHave(output);
+        bemMagic.explain();
+        return { className: output };
+    }
+}
+
+export default function make(prefixes: Prefixes = {}) {
+    const safePrefixes = Object.assign({
+        elemPrefix: DEFAULT_ELEM_PREFIX,
+        modPrefix: DEFAULT_MOD_PREFIX,
+        valuePrefix: DEFAULT_VALUE_PREFIX,
+    }, prefixes);
+    return function bem(blockName: string, classNames: ClassNames) {
+        return {
+            block: makeBlockFunction(blockName, classNames, safePrefixes),
+            elem: makeElemFunction(blockName, classNames, safePrefixes),
         };
     };
 }
