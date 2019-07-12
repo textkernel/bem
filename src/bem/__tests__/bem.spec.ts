@@ -333,4 +333,66 @@ describe('@textkernel/bem', () => {
             ]);
         });
     });
+
+    describe.skip('debug options', () => {
+
+        it('should log debugging information if needed', () => {
+            const consoleLog = jest.spyOn(console, 'log').mockImplementation();
+            const consoleTable = jest.spyOn(console, 'table').mockImplementation();
+            const consoleGroup = jest.spyOn(console, 'group').mockImplementation();
+            const consolegroupEnd = jest.spyOn(console, 'groupEnd').mockImplementation();
+            const bem = make();
+            const classnames = emulateCssModule([
+                'Button__label',
+                'Button__label--theme_creepy',
+                'Button__item',
+                'Button__item--theme',
+            ]);
+            const { elem } = bem('Button', classnames);
+            elem(['label', 'item'], {
+                theme: 'creepy',
+                className: 'Group__item',
+            }, {
+                debug: true
+            });
+            expect(consoleLog).toHaveBeenCalledTimes(5);
+            expect(consoleTable).toHaveBeenCalledTimes(2);
+            expect(consoleGroup).toHaveBeenCalledTimes(1);
+            expect(consolegroupEnd).toHaveBeenCalledTimes(1);
+            consoleLog.mockRestore();
+            consoleGroup.mockRestore();
+            consolegroupEnd.mockRestore();
+            consoleTable.mockRestore();
+        });
+        it('should log debugging information if needed', () => {
+            const consoleLog = jest.spyOn(console, 'log').mockImplementation();
+            const consoleTable = jest.spyOn(console, 'table').mockImplementation();
+            const consoleGroup = jest.spyOn(console, 'group').mockImplementation();
+            const consolegroupEnd = jest.spyOn(console, 'groupEnd').mockImplementation();
+            const bem = make();
+            const classnames = emulateCssModule([
+                'Button',
+                'Button--theme_creepy',
+            ]);
+            const { block } = bem('Button', classnames);
+            block({
+                theme: 'creepy',
+                className: 'Group__button',
+                dispatch: () => true,
+                payload: { foo: 'bar' },
+                shit: undefined,
+                onemilliondollamistake: null,
+            }, {
+                debug: true,
+            });
+            expect(consoleLog).toHaveBeenCalledTimes(5);
+            expect(consoleTable).toHaveBeenCalledTimes(2);
+            expect(consoleGroup).toHaveBeenCalledTimes(1);
+            expect(consolegroupEnd).toHaveBeenCalledTimes(1);
+            consoleLog.mockRestore();
+            consoleGroup.mockRestore();
+            consolegroupEnd.mockRestore();
+            consoleTable.mockRestore();
+        });
+    })
 });

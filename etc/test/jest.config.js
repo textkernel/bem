@@ -28,6 +28,7 @@ module.exports = {
     collectCoverageFrom: [
         '<rootDir>/src/**/*.ts',
         '!<rootDir>/src/**/__tests__/**/*.ts?(x)',
+        '!<rootDir>/src/**/BemMagicExplained/**/*.ts',
     ],
 
     // This will be used to configure minimum threshold enforcement for coverage results.
@@ -38,7 +39,7 @@ module.exports = {
     // allowed.
     coverageThreshold: {
         global: {
-            branches: 100,
+            branches: 95,
             functions: 100,
             lines: 100,
             statements: 100,

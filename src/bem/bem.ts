@@ -1,3 +1,6 @@
+import BemMagicExplained from '../BemMagicExplained';
+import { ClassNames } from '../types';
+
 const DEFAULT_ELEM_PREFIX = '__';
 const DEFAULT_MOD_PREFIX = '--';
 const DEFAULT_VALUE_PREFIX = '_';
@@ -8,12 +11,13 @@ type Prefixes = {
     valuePrefix?: string;
 }
 
-export type ClassNames = {
-    [key: string]: string;
-}
-
 type Mods = {
     [key: string]: unknown;
+    className?: string;
+}
+
+type DebugOptions = {
+    debug?: boolean;
 }
 
 type Attrs = {
@@ -29,23 +33,31 @@ function buildClassNames(
     classNames: ClassNames,
     mods: Mods,
     prefixes: Prefixes,
+    bemMagic: BemMagicExplained,
 ): string {
     const result = [];
     const { modPrefix, valuePrefix } = prefixes;
-
     if (hasClassName(classNames, baseName)) {
+        bemMagic.applies(baseName).as(classNames[baseName]).because('Base name class was found.');
         result.push(classNames[baseName]);
+    } else {
+        bemMagic.ignores(baseName).because('Base name class was not found.');
     }
 
     Object.keys(mods)
         .filter((modName): boolean => {
             if (modName === 'className') return false;
-            const typeOfMod = typeof mods[modName];
-            return (
-                typeOfMod === 'string'
-                || typeOfMod === 'number'
-                || typeOfMod === 'boolean'
+            const typeOfValue = typeof mods[modName];
+            const isStringNumberOrBoolean = (
+                typeOfValue === 'string' ||
+                typeOfValue === 'number' ||
+                typeOfValue === 'boolean'
             );
+            if (isStringNumberOrBoolean === false) {
+                bemMagic.ignores(baseName).modifier(modName)
+                    .because('Modifier\'s value is not of a string, number or boolean type.');
+            }
+            return isStringNumberOrBoolean;
         })
         .forEach((modName): void => {
             const modValue = mods[modName];
@@ -53,23 +65,41 @@ function buildClassNames(
             const classNameCandidateWithValue = `${baseName}${modPrefix}${modName}${valuePrefix}${modValue}`;
 
             if (modValue === false || modValue === '' || modValue === 0) {
+                bemMagic.ignores(baseName).modifier(modName)
+                    .because('Modifier\'s value is either empty string, false or zero.');
                 return;
             }
 
             if (modValue === true && hasClassName(classNames, classNameWithoutValue)) {
                 result.push(classNames[classNameWithoutValue]);
+                bemMagic.applies(baseName).modifier(modName).with(modValue)
+                    .as(classNames[classNameWithoutValue])
+                    .because('Modifier\'s value is boolean "true".');
             } else {
                 if (hasClassName(classNames, classNameWithoutValue)) {
                     result.push(classNames[classNameWithoutValue]);
+                    bemMagic.applies(baseName).modifier(modName)
+                        .as(classNames[classNameWithoutValue])
+                        .because('Wildcard classname for the modifier was found.');
                 }
                 if (hasClassName(classNames, classNameCandidateWithValue)) {
                     result.push(classNames[classNameCandidateWithValue]);
+                    bemMagic.applies(baseName).modifier(modName).with(modValue as string)
+                        .as(classNames[classNameCandidateWithValue])
+                        .because('Class was found for modifier + value pair.');
                 }
             }
+
+            bemMagic.ignores(baseName).modifier(modName)
+                .because('Class was not found for either wildcard modifier nor modifier + value pair.');
         });
 
     if (typeof mods.className === 'string' && mods.className !== '') {
         result.push(mods.className);
+        bemMagic.applies(baseName)
+            .className(mods.className)
+            .as(mods.className)
+            .because('Raw className was passed as a property');
     }
 
     return result.join(' ');
@@ -83,22 +113,47 @@ export default function make({
     return function bem(blockName: string, classNames: ClassNames) {
         const prefixes = { modPrefix, valuePrefix };
         return {
-            block(mods: Mods = {}): Attrs {
-                return {
-                    className: buildClassNames(blockName, classNames, mods, prefixes),
-                };
+            block(mods: Mods = {}, options: DebugOptions = {}): Attrs {
+                const bemMagic = new BemMagicExplained({
+                    block: blockName,
+                    classNames,
+                    isEnabled: (options.debug === true)
+                });
+                const output = buildClassNames(
+                    blockName,
+                    classNames,
+                    mods,
+                    prefixes,
+                    bemMagic,
+                );
+                bemMagic.thatsWhatWeHave(output);
+                bemMagic.explain();
+                return { className: output };
             },
-            elem(names: string | string[], mods: Mods = {}): Attrs {
+            elem(names: string | string[], mods: Mods = {}, options: DebugOptions = {}): Attrs {
                 const elemNames = (typeof names === 'string') ? [names] : names;
-                return {
-                    className: elemNames.reduce(
-                        (result: string[], name: string): string[] => [
-                            ...result,
-                            buildClassNames(`${blockName}${elemPrefix}${name}`, classNames, mods, prefixes),
-                        ],
-                        [],
-                    ).join(' '),
-                };
+                const bemMagic = new BemMagicExplained({
+                    block: blockName,
+                    elems: elemNames,
+                    classNames,
+                    isEnabled: (options.debug === true)
+                });
+                const output = elemNames.reduce(
+                    (result: string[], name: string): string[] => [
+                        ...result,
+                        buildClassNames(
+                            `${blockName}${elemPrefix}${name}`,
+                            classNames,
+                            mods,
+                            prefixes,
+                            bemMagic,
+                        ),
+                    ],
+                    [],
+                ).join(' ');
+                bemMagic.thatsWhatWeHave(output);
+                bemMagic.explain();
+                return { className: output };
             },
         };
     };
