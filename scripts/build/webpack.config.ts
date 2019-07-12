@@ -56,6 +56,6 @@ export default {
     },
     performance: {
         hints: 'error',
-        maxEntrypointSize: 3_000,
+        maxEntrypointSize: 10_000,
     },
 };
