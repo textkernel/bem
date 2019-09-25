@@ -19,7 +19,7 @@ export default class ActionExplanation {
 
     private value: string | number | boolean | undefined;
 
-    private classname: string | undefined;
+    private resultingClassName: string | undefined;
 
     private reason: string | undefined;
 
@@ -46,8 +46,8 @@ export default class ActionExplanation {
         return this;
     }
 
-    public as(classname: string): ActionExplanation {
-        this.classname = classname;
+    public as(className: string): ActionExplanation {
+        this.resultingClassName = className;
         return this;
     }
 
@@ -73,8 +73,8 @@ export default class ActionExplanation {
     }
 
     public get resultSummary(): string {
-        if (!this.classname) return 'resulting classname was not specified.';
-        return this.classname;
+        if (!this.resultingClassName) return 'resulting class name was not specified.';
+        return this.resultingClassName;
     }
 
     private getActionAppliedSummary(): string {

@@ -80,7 +80,7 @@ function buildClassNames(
                     result.push(classNames[classNameWithoutValue]);
                     bemMagic.applies(baseName).modifier(modName)
                         .as(classNames[classNameWithoutValue])
-                        .because('Wildcard classname for the modifier was found.');
+                        .because('Wildcard class name for the modifier was found.');
                 }
                 if (hasClassName(classNames, classNameCandidateWithValue)) {
                     result.push(classNames[classNameCandidateWithValue]);

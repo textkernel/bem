@@ -9,7 +9,7 @@
 BEM
 ===
 
-![css modules + bem + reat = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg?sanitize=true)
+![css modules + bem + react = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg?sanitize=true)
 
 **Magically generates class names for React component.**
 
@@ -59,7 +59,7 @@ const { block, elem } = bem(
 
 const Button = (props) => (
     <button
-        {/* If needed, `props` should be spreaded before `block` or `elem in order to avoid className overwrite. */}
+        {/* If needed, `props` should be spread before `block` or `elem in order to avoid className overwrite. */}
         {...props}
         {/* Spread `block` to add class names to the top level node */}
         { ...block(props) }
@@ -201,7 +201,7 @@ respectively exists in classnames map.
 
 ### Prop `active` and `type` are set:
 
-**Note** that property of a boolean type `active={true}` produces `Button__label--active` (*without* mod value), when property of a string type `type='extraordinary'` gives us two classnameas: `Button__label--type` (*without* mod value) and `Button__label--type_extraordinary` (*with* mod value).
+**Note** that property of a boolean type `active={true}` produces `Button__label--active` (*without* mod value), when property of a string type `type='extraordinary'` gives us two class names: `Button__label--type` (*without* mod value) and `Button__label--type_extraordinary` (*with* mod value).
 
 ```html
 <Button active={true} type='extraordinary' />

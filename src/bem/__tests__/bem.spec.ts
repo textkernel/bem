@@ -150,7 +150,7 @@ describe('@textkernel/bem', () => {
                 'Button--score',
                 'Button--score_1',
                 'Button--data',
-                'Button--data_obejct',
+                'Button--data_object',
             ]);
             const { block } = bem('Button', classnames);
             const blockAttrs = block({
@@ -317,7 +317,7 @@ describe('@textkernel/bem', () => {
                 'Button__label--score',
                 'Button__label--score_1',
                 'Button__label--data',
-                'Button__label--data_obejct',
+                'Button__label--data_object',
             ]);
             const { elem } = bem('Button', classnames);
             const elemAttrs = elem('label', {
@@ -339,7 +339,7 @@ describe('@textkernel/bem', () => {
             const consoleLog = jest.spyOn(console, 'log').mockImplementation();
             const consoleTable = jest.spyOn(console, 'table').mockImplementation();
             const consoleGroup = jest.spyOn(console, 'group').mockImplementation();
-            const consolegroupEnd = jest.spyOn(console, 'groupEnd').mockImplementation();
+            const consoleGroupEnd = jest.spyOn(console, 'groupEnd').mockImplementation();
             const bem = make();
             const classnames = emulateCssModule([
                 'Button',
@@ -356,7 +356,7 @@ describe('@textkernel/bem', () => {
                 dispatch: () => true,
                 payload: { foo: 'bar' },
                 shit: undefined,
-                onemilliondollamistake: null,
+                oneMillionDollarMistake: null,
             }, {
                 debug: true,
             });
@@ -366,14 +366,14 @@ describe('@textkernel/bem', () => {
                 dispatch: () => true,
                 payload: { foo: 'bar' },
                 shit: undefined,
-                onemilliondollamistake: null,
+                oneMillionDollarMistake: null,
             }, {
                 debug: true,
             });
             expect(consoleLog).toHaveBeenCalledTimes(8);
             expect(consoleTable).toHaveBeenCalledTimes(8);
             expect(consoleGroup).toHaveBeenCalledTimes(2);
-            expect(consolegroupEnd).toHaveBeenCalledTimes(4);
+            expect(consoleGroupEnd).toHaveBeenCalledTimes(4);
         });
     });
 });

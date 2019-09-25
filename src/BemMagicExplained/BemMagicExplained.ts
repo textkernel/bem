@@ -55,9 +55,9 @@ export default class BemMagicExplained {
         let groupTitle = '';
         if (this.elems.length > 0) {
             const elemNames = BemMagicExplained.stringifyArrayOfStrings(this.elems);
-            groupTitle = `BEM magic explaind for block: "${this.block}", elem(s): ${elemNames}`;
+            groupTitle = `BEM magic explained for block: "${this.block}", elem(s): ${elemNames}`;
         } else {
-            groupTitle = `BEM magic explaind for block: "${this.block}"`;
+            groupTitle = `BEM magic explained for block: "${this.block}"`;
         }
         this.groupTogether(
             groupTitle,
