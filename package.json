@@ -16,7 +16,7 @@
         "url": "https://github.com/textkernel/bem/issues"
     },
     "main": "dist/bem.js",
-    "types": "dist/bem.d.ts",
+    "types": "dist/dts/index.d.ts",
     "scripts": {
         "build": "webpack --config ./scripts/build/webpack.config.ts",
         "test": "jest --config scripts/test/jest.config.js --testPathIgnorePatterns dist.spec.ts",

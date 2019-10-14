@@ -1,8 +1,5 @@
-// eslint-disable-next-line
-/// <reference types="./typings" />
 import path from 'path';
 import webpack from 'webpack'; // eslint-disable-line
-import FileManagerPlugin from 'filemanager-webpack-plugin'; // eslint-disable-line
 import { buildParams } from '../../package.json';
 
 const PROJECT_ROOT_PATH = path.resolve(__dirname, '../../');
@@ -34,18 +31,6 @@ export default {
         new webpack.NamedModulesPlugin(),
         new webpack.HashedModuleIdsPlugin({
             hashDigestLength: 6,
-        }),
-        new FileManagerPlugin({
-            onStart: {
-                delete: [`${DIST_PATH}/`],
-            },
-            onEnd: {
-                move: [{
-                    source: `${DIST_PATH}/dts/bem/bem.d.ts`,
-                    destination: `${DIST_PATH}/bem.d.ts`,
-                }],
-                delete: [`${DIST_PATH}/dts/`],
-            },
         }),
     ],
     resolve: {
