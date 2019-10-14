@@ -5,7 +5,7 @@
     },
     "version": "0.1.4",
     "description": "Automatically generates list of classnames based on its props/state for your React component.",
-    "author": "Textkernel B.V. <open-source@textkernel.nl>",
+    "author": "Alexander I. Antipin <antipin@textkernel.nl>",
     "license": "MIT",
     "homepage": "https://github.com/textkernel/bem#readme",
     "repository": {
