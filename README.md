@@ -28,7 +28,7 @@ yarn add @textkernel/bem
 Usage
 -----
 
-1. Create and export your own **bem** function using `make`.
+## 1. Create and export your own **bem** function using `make`.
 
 ```js
 // initBem.js
@@ -43,7 +43,7 @@ export default make({
 });
 ```
 
-2. Import **bem** into a React component, create `block` and `elem` functions and use them in render method
+## 2. Import **bem** into a React component, create `block` and `elem` functions and use them in render method
 
 ```js
 // Button.js
@@ -94,7 +94,29 @@ Button.defaultProps = {
 export default Button;
 ```
 
-3. Write css respecting BEM methodology and it will be automatically picked up.
+### Passing custom class names to `block` and `elem` functions.
+
+#### block
+
+If `props` object that you pass to `block` contains `className` property, then this `className` is applied to the resulting class name list. In case of `elem` function though it is ignored.
+
+```ts
+const result = block('Button', { size: 'big', className: 'custom-class-name' });
+
+result.className === 'Button Button--size_big custom-class-name' // true
+```
+
+#### elem
+
+If `props` object that you pass to `elem` contains `elemClassName` property, then this `elemClassName` is applied to the resulting class name list. In case of `block` function though it is ignored.
+
+```ts
+const result = elem('label', { position: 'right', elemClassName: 'custom-elem-class-name' });
+
+result.className === 'Button__label Button__label--position_right custom-elem-class-name' // true
+```
+
+## 3. Write css respecting BEM methodology and it will be automatically picked up.
 
 ```css
 /* Button.scss */

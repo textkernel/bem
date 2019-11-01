@@ -118,13 +118,12 @@ describe('@textkernel/bem', () => {
             const classnames = emulateCssModule(['Button']);
             const { block } = bem('Button', classnames);
             const blockAttrs = block({
-                className: 'Group__button',
+                className: 'Group__item',
+                elemClassName: 'item-element',
             });
             expect(blockAttrs.className.trim()).toBe(blockAttrs.className);
-            expect(blockAttrs.className.split(' ')).toEqual([
-                classnames['Button'],
-                'Group__button',
-            ]);
+            expect(blockAttrs.className.split(' ').includes('Group__item')).toBeTruthy();
+            expect(blockAttrs.className.split(' ').includes('item-element')).toBeFalsy();
         });
 
         it('should treat className property correctly when classnames is empty', () => {
@@ -280,26 +279,25 @@ describe('@textkernel/bem', () => {
             ]);
         });
 
-        it('should treat className property correctly', () => {
+        it('should treat className and elemClassName property correctly', () => {
             const bem = make();
             const classnames = emulateCssModule(['Button__label']);
             const { elem } = bem('Button', classnames);
             const elemAttrs = elem('label', {
-                className: 'Group__button',
+                className: 'Group',
+                elemClassName: 'Group__button',
             });
             expect(elemAttrs.className.trim()).toBe(elemAttrs.className);
-            expect(elemAttrs.className.split(' ')).toEqual([
-                classnames['Button__label'],
-                'Group__button',
-            ]);
+            expect(elemAttrs.className.split(' ').includes('Group')).toBeFalsy();
+            expect(elemAttrs.className.split(' ').includes('Group__button')).toBeTruthy();
         });
 
-        it('should treat className property correctly when classnames is empty', () => {
+        it('should treat elemClassName property correctly when classnames is empty', () => {
             const bem = make();
             const classnames = {};
             const { elem } = bem('Button', classnames);
             const elemAttrs = elem('label', {
-                className: 'Group__button',
+                elemClassName: 'Group__button',
             });
             expect(elemAttrs.className).toBe('Group__button');
         });
@@ -362,7 +360,7 @@ describe('@textkernel/bem', () => {
             });
             elem(['label', 'item'], {
                 theme: 'creepy',
-                className: 'Group__item',
+                className: 'Group',
                 dispatch: () => true,
                 payload: { foo: 'bar' },
                 shit: undefined,

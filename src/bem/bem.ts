@@ -14,6 +14,7 @@ type Prefixes = {
 type Mods = {
     [key: string]: unknown;
     className?: string;
+    elemClassName?: string;
 }
 
 type DebugOptions = {
@@ -30,6 +31,7 @@ function hasClassName(classNames: ClassNames, value: string): boolean {
 
 function buildClassNames(
     baseName: string,
+    fnType: 'block' | 'elem',
     classNames: ClassNames,
     mods: Mods,
     prefixes: Prefixes,
@@ -94,12 +96,26 @@ function buildClassNames(
                 .because('Class was not found for either wildcard modifier nor modifier + value pair.');
         });
 
-    if (typeof mods.className === 'string' && mods.className !== '') {
+    if (
+        fnType === 'block'
+        && typeof mods.className === 'string'
+        && mods.className !== ''
+    ) {
         result.push(mods.className);
         bemMagic.applies(baseName)
             .className(mods.className)
             .as(mods.className)
             .because('Raw className was passed as a property');
+    } else if (
+        fnType === 'elem'
+        && typeof mods.elemClassName === 'string'
+        && mods.elemClassName !== ''
+    ) {
+        result.push(mods.elemClassName);
+        bemMagic.applies(baseName)
+            .className(mods.elemClassName)
+            .as(mods.elemClassName)
+            .because('elemClassName was passed as a property');
     }
 
     return result.join(' ');
@@ -120,6 +136,7 @@ function makeBlockFunction(
         });
         const output = buildClassNames(
             blockName,
+            'block',
             classNames,
             mods,
             prefixes,
@@ -155,6 +172,7 @@ function makeElemFunction(
                 ...result,
                 buildClassNames(
                     `${blockName}${prefixes.elemPrefix}${name}`,
+                    'elem',
                     classNames,
                     mods,
                     prefixes,
