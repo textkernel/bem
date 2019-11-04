@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.2.3](https://github.com/textkernel/bem/compare/v0.2.1...v0.2.3) (2019-11-04)
+
+
+### Features
+
+* added reserved `elemClassName` property name ([8205664](https://github.com/textkernel/bem/commit/8205664665ec9ef84f5064e91d423f3d942bb6c3))
+
 ## [0.2.1](https://github.com/textkernel/bem/compare/v0.2.0...v0.2.1) (2019-10-14)
 
 
@@ -37,6 +48,3 @@
 
 * since now `block` and `elem` return { classNames: '...' }
 instead of just a string with classes.
-
-
-
