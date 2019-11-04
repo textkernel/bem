@@ -203,10 +203,11 @@ function makeBemFunction(prefixes: Prefixes): BemFn {
 }
 
 export default function make(prefixes: Prefixes = {}): BemFn {
-    const safePrefixes = Object.assign({
+    const safePrefixes = {
+        ...prefixes,
         elemPrefix: DEFAULT_ELEM_PREFIX,
         modPrefix: DEFAULT_MOD_PREFIX,
         valuePrefix: DEFAULT_VALUE_PREFIX,
-    }, prefixes);
+    };
     return makeBemFunction(safePrefixes);
 }
