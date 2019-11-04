@@ -24,7 +24,8 @@
         "lint": "eslint --config scripts/lint/.eslintrc.js --ignore-path scripts/lint/.eslintignore --ext .ts,.tsx,.js .",
         "prepublishOnly": "npm test && npm run lint && npm run build",
         "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
-        "release": "standard-version -t ''"
+        "release": "standard-version",
+        "publish-release": "npm publish --access=public && git push --no-verify --follow-tags origin dev"
     },
     "files": [
         "/dist"
