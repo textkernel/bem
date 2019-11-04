@@ -20,7 +20,7 @@
     "scripts": {
         "build": "webpack --config ./scripts/build/webpack.config.ts",
         "test": "jest --config scripts/test/jest.config.js --testPathIgnorePatterns dist.spec.ts",
-        "test-dist": "jest --config scripts/test/jest.config.js --coverage=false dist.spec.ts",
+        "test-dist": "npm run build && jest --config scripts/test/jest.config.js --coverage=false dist.spec.ts",
         "lint": "eslint --config scripts/lint/.eslintrc.js --ignore-path scripts/lint/.eslintignore --ext .ts,.tsx,.js .",
         "prepublishOnly": "npm test && npm run lint && npm run build",
         "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
