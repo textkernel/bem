@@ -25,7 +25,7 @@
         "prepublishOnly": "npm test && npm run lint && npm run build",
         "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
         "release": "standard-version",
-        "publish-release": "npm publish --access=public && git push --no-verify --follow-tags origin dev"
+        "publish-release": "npm publish --access=public && git push --no-verify --follow-tags origin master"
     },
     "files": [
         "/dist"

@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=dev)](https://travis-ci.com/textkernel/bem)
-[![Coverage Status](https://coveralls.io/repos/github/textkernel/bem/badge.svg?branch=dev)](https://coveralls.io/github/textkernel/bem?branch=dev)
+[![Build Status](https://travis-ci.com/textkernel/bem.svg?branch=master)](https://travis-ci.com/textkernel/bem)
+[![Coverage Status](https://coveralls.io/repos/github/textkernel/bem/badge.svg?branch=master)](https://coveralls.io/github/textkernel/bem?branch=master)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/textkernel/bem.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/textkernel/bem/context:javascript)
 ![Package dependencies](https://img.shields.io/david/textkernel/bem.svg?style=flat)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@textkernel/bem.svg)
@@ -9,7 +9,7 @@
 BEM
 ===
 
-![css modules + bem + react = love](https://raw.githubusercontent.com/textkernel/bem/dev/docs/logo.svg?sanitize=true)
+![css modules + bem + react = love](https://raw.githubusercontent.com/textkernel/bem/master/docs/logo.svg?sanitize=true)
 
 **Magically generates class names for React component.**
 
