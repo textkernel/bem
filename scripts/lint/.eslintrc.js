@@ -14,15 +14,11 @@ module.exports =  {
         es6: true,
     },
     extends:  [
-        'airbnb',
+        'airbnb/base',
         'plugin:jest/recommended',
-        // 'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
     ],
     settings:  {
-        // react:  {
-        //     version:  'detect',
-        // },
         'import/resolver': {
             'node': {
             'paths': ['src'],
@@ -31,8 +27,9 @@ module.exports =  {
         }
     },
     rules:  {
+        'indent': ["error", 4, { SwitchCase: 1 }],
         '@typescript-eslint/no-unused-vars': 'error',
-        '@typescript-eslint/interface-name-prefix': 'always',
+        '@typescript-eslint/interface-name-prefix': ['error', { "prefixWithI": "never" }],
         '@typescript-eslint/prefer-interface': 'off',
     },
     overrides: [

@@ -23,7 +23,7 @@ export default class BemMagicExplained {
 
     private explanationsIgnored: ActionExplanation[] = [];
 
-    private result: string = '';
+    private result = '';
 
     public constructor({
         block, elems = [], classNames, isEnabled,

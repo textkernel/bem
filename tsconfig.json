@@ -14,9 +14,8 @@
     "declarationDir": "./dist/dts"
   },
   "include": [
-    "src"
+    "src",
+    "scripts",
+    "__tests__"
   ],
-  "exclude": [
-    "src/**/__tests__/*"
-  ]
 }

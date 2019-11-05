@@ -7,7 +7,6 @@ export default function emulateCssModule(classNames: string[]): ClassNames {
             ...result,
             [className]: `${className}--${randomHash}`,
         }),
-        // eslint-disable-next-line @typescript-eslint/no-object-literal-type-assertion
         {} as ClassNames,
     );
 }
