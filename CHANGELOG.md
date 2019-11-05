@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/textkernel/bem/compare/v0.2.3...v0.2.4) (2019-11-05)
+
+
+### Features
+
+* omit className prop  from block/elem output if className is empty ([45e8048](https://github.com/textkernel/bem/commit/45e8048d65f9556f0ca12d5ca6620a4167512a1a))
+
 ### [0.2.3](https://github.com/textkernel/bem/compare/v0.2.1...v0.2.3) (2019-11-04)
 
 

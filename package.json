@@ -3,7 +3,7 @@
     "buildParams": {
         "libraryName": "bem"
     },
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Automatically generates list of classnames based on its props/state for your React component.",
     "author": "Alexander I. Antipin <antipin@textkernel.nl>",
     "license": "MIT",
