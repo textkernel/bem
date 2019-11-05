@@ -22,7 +22,7 @@ type DebugOptions = {
 }
 
 type Attrs = {
-    className: string;
+    className?: string;
 }
 
 function hasClassName(classNames: ClassNames, value: string): boolean {
@@ -144,6 +144,7 @@ function makeBlockFunction(
         );
         bemMagic.thatsWhatWeHave(output);
         bemMagic.explain();
+        if (!output) return {};
         return { className: output };
     };
 }
@@ -183,6 +184,7 @@ function makeElemFunction(
         ).join(' ');
         bemMagic.thatsWhatWeHave(output);
         bemMagic.explain();
+        if (!output) return {};
         return { className: output };
     };
 }
